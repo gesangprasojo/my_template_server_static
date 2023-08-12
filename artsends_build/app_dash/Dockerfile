@@ -6,30 +6,30 @@ RUN  yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.
 # RUN yum install -y {vim,wget,zip,unzip,sed,gd,gd-devel,gmp-devel,net-tools,ntpdate,ntp,openssh-clients,openssh-server,httpd,openssl-devel,yum-utils,perl,curl,squid,git,cronie,nginx,certbot-nginx}
 # Testing
 RUN yum update -y
-
-
 RUN yum install -y {vim,wget,zip,unzip,sed,gd,gd-devel,gmp-devel,net-tools,ntpdate,ntp,openssh-clients,openssh-server,httpd,openssl-devel,yum-utils,perl,curl,squid,git,cronie,nginx,certbot-nginx,autoconf,pkg-config,libssl-dev,libzip-dev,zlib1g-dev,zlib1g-dev}
+RUN yum-config-manager --disable *
+RUN yum-config-manager --enable remi–php7*
+RUN yum -y install php php-{cli,fpm,gd,redis,soap,intl,pdo,pdo_mysql,pdo_pgsql,pear,devel,mbstring,zip,unzip,pear}
 # RUN yum install -y {pcre-devel,php-devel,zlib-devel}
 # RUN yum install php-pear -y
 
 
-RUN yum-config-manager --disable *
-RUN yum-config-manager --enable remi–php7*
-RUN yum -y install php php-{cli,fpm,gd,redis,soap,intl,pdo,pdo_mysql,pdo_pgsql,pear,devel,mbstring,zip,unzip,pear}
-RUN yum -y install php-mysql.x86_64 --skip-broken
 
-RUN  yum install -y gcc-c++ make
-RUN  yum install -y python36 \
-     python36-devel \ 
-     python36-setuptools 
-RUN  easy_install-3.6 pip
-RUN  pip install supervisor
-RUN  pip install s3cmd
+
+# RUN yum -y install php-mysql.x86_64 --skip-broken
+
+# RUN  yum install -y gcc-c++ make
+# RUN  yum install -y python36 \
+#      python36-devel \ 
+#      python36-setuptools 
+# RUN  easy_install-3.6 pip
+# RUN  pip install supervisor
+# RUN  pip install s3cmd
 # ---------------php 8 ------------------------
 
 
 
-RUN  curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# RUN  curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 # ---------------php------------------------
 
 # ---------------php 7------------------------
@@ -42,8 +42,8 @@ RUN  curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/loca
 # ---------------php------------------------
 
 
-RUN  curl -sL https://rpm.nodesource.com/setup_16.x | bash -
-RUN  yum install nodejs -y
+# RUN  curl -sL https://rpm.nodesource.com/setup_16.x | bash -
+# RUN  yum install nodejs -y
 
 ARG ART_NGINX_USER
 ARG ART_NGINX_USER_PWD
