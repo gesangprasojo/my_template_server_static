@@ -3,10 +3,11 @@ RUN  yum clean all
 RUN  yum install -y https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-14.noarch.rpm \
      http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
-RUN  yum-config-manager --disable remi-php*
-RUN  yum-config-manager --enable remi–php8*
 RUN  yum update -y
  
+RUN  yum-config-manager --disable remi-php*
+RUN  yum-config-manager --enable remi–php8*
+
 
 RUN yum -y install php php-zip php-mysql php-mcrypt php-xml php-mbstring
 RUN yum -y install php-mysql.x86_64 --skip-broken
