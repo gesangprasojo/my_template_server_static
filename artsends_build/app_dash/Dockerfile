@@ -20,17 +20,15 @@ RUN  easy_install-3.6 pip
 RUN  pip install supervisor
 RUN  pip install s3cmd
 # ---------------php 8 ------------------------
+
+
+
+RUN  yum-config-manager --disable remi-php*
+RUN  yum-config-manager --enable 'remi–php80'
 RUN  yum clean all
-
-
-# RUN  yum-config-manager --disable 'remi-php*'
-# RUN  yum-config-manager --enable 'remi–php80'
-# RUN yum  install php php-{cli,fpm,gd,redis,soap,intl,pdo,pdo_mysql,pdo_pgsql,pear,devel,mbstring,zip,unzip,pear}
-# RUN yum -y install php-mysql.x86_64 --skip-broken
-# RUN  curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-# RUN  yum update -y
-# RUN pecl install mongodb
-# RUN echo "extension=mongodb.so" > /etc/php.ini
+RUN yum -y install php php-{cli,fpm,gd,redis,soap,intl,pdo,pdo_mysql,pdo_pgsql,pear,devel,mbstring,zip,unzip,pear}
+RUN yum -y install php-mysql.x86_64 --skip-broken
+RUN  curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 # ---------------php------------------------
 
 # ---------------php 7------------------------
