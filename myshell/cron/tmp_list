@@ -1,0 +1,3 @@
+* * * * * . /Area_cron/fn_root.sh && hit_cron
+* * * * * date >> /Area_cron/own_log/log2.txt
+

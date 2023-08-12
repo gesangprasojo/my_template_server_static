@@ -1,0 +1,85 @@
+version: "3.7"
+services:
+    app_router:
+        build:
+            context: .
+            args:
+                - ART_NGINX_USER=router
+                - ART_NGINX_USER_PWD=master-1991
+                - ART_SUPERVISOR_USER=router
+                - ART_SIGNITURE=ART_12_08_2023
+            dockerfile: ./artsends_build/app_router/Dockerfile
+        image: megesangprasojo/artsends:app_router
+        command: >
+            bash -c "supervisord -c /etc/supervisord.conf;"
+        container_name: app_router
+        ports:
+            - '81:81'
+        networks:
+            - artsends_net
+        volumes:
+            - ./supervisord/master_conf/app_router/supervisord.conf:/etc/supervisord.conf
+            - ./supervisord/list_app/app_router/:/etc/supervisor/run.d/
+            # 
+            - ./nginx/serverblock/nginx_conf/app_router/nginx.conf:/etc/nginx/nginx.conf
+            - ./nginx/serverblock/block_conf/app_router/:/etc/nginx/router/
+            #
+            - ./file_deploy/file_template/html/index.html/:/etc/nginx/tmp_file/index.html
+        restart: always
+    app_web:
+        build:
+            context: .
+            args:
+                - ART_NGINX_USER=web
+                - ART_NGINX_USER_PWD=master-1991
+                - ART_SUPERVISOR_USER=router
+                - ART_SIGNITURE=ART_12_08_2023
+            dockerfile: ./artsends_build/app_web/Dockerfile
+        image: megesangprasojo/artsends:app_web
+        command: >
+            bash -c "supervisord -c /etc/supervisord.conf;"
+        container_name: app_web
+        ports:
+            - '82:82'
+        networks:
+            - artsends_net
+        volumes:
+            - ./supervisord/master_conf/app_web/supervisord.conf:/etc/supervisord.conf
+            - ./supervisord/list_app/app_web/:/etc/supervisor/run.d/
+            # 
+            - ./nginx/serverblock/nginx_conf/app_web/nginx.conf:/etc/nginx/nginx.conf
+            - ./nginx/serverblock/block_conf/app_web/:/etc/nginx/web/
+            #
+            - ./file_deploy/file_template/html/index.html/:/etc/nginx/tmp_file/index.html
+            - ./../app/web/:/area/web
+        restart: always
+    app_dash:
+        build:
+            context: .
+            args:
+                - ART_NGINX_USER=dash
+                - ART_NGINX_USER_PWD=master-1991
+                - ART_SUPERVISOR_USER=router
+                - ART_SIGNITURE=ART_12_08_2023
+            dockerfile: ./artsends_build/app_dash/Dockerfile
+        image: megesangprasojo/artsends:app_dash
+        command: >
+            bash -c "supervisord -c /etc/supervisord.conf;"
+        container_name: app_dash
+        ports:
+            - '83:83'
+        networks:
+            - artsends_net
+        volumes:
+            - ./supervisord/master_conf/app_dash/supervisord.conf:/etc/supervisord.conf
+            - ./supervisord/list_app/app_dash/:/etc/supervisor/run.d/
+            # 
+            - ./nginx/serverblock/nginx_conf/app_dash/nginx.conf:/etc/nginx/nginx.conf
+            - ./nginx/serverblock/block_conf/app_dash/:/etc/nginx/dash/
+            #
+            - ./file_deploy/file_template/html/index.html/:/etc/nginx/tmp_file/index.html
+            - ./../app/dash/:/area/dash
+        restart: always
+networks:
+    artsends_net:
+        driver: bridge
