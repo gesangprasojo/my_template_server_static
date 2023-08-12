@@ -1,11 +1,11 @@
 FROM centos:7
 
-RUN  yum https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-14.noarch.rpm \
+RUN  yum install -y https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-14.noarch.rpm \
      http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
 # RUN yum install -y {vim,wget,zip,unzip,sed,gd,gd-devel,gmp-devel,net-tools,ntpdate,ntp,openssh-clients,openssh-server,httpd,openssl-devel,yum-utils,perl,curl,squid,git,cronie,nginx,certbot-nginx}
 # Testing
-RUN yum --enablerepo=remi,epel install php php-zip php-mysql php-mcrypt php-xml php-mbstring
+# RUN yum --enablerepo=remi,epel install php php-zip php-mysql php-mcrypt php-xml php-mbstring
 
 # RUN yum install -y {pcre-devel,php-devel,zlib-devel}
 # RUN yum install php-pear -y
