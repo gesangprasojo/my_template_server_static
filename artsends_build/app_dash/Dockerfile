@@ -24,7 +24,7 @@ RUN  pip install s3cmd
 RUN  yum clean all
 RUN  yum update -y
 
-RUN yum-config-manager --disable remi*
+RU yum-config-manager --disable remi*''
 RUN yum-config-manager --enable remi–php74*
 
 RUN yum -y install php php-{cli,fpm,gd,redis,soap,intl,pdo,pdo_mysql,pdo_pgsql,pear,devel,mbstring,zip,unzip,pear}
