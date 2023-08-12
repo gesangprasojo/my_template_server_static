@@ -5,11 +5,10 @@ RUN  yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.
 
 # RUN yum install -y {vim,wget,zip,unzip,sed,gd,gd-devel,gmp-devel,net-tools,ntpdate,ntp,openssh-clients,openssh-server,httpd,openssl-devel,yum-utils,perl,curl,squid,git,cronie,nginx,certbot-nginx}
 # Testing
-RUN yum update -y
-RUN yum install -y {vim,wget,zip,unzip,sed,gd,gd-devel,gmp-devel,net-tools,ntpdate,ntp,openssh-clients,openssh-server,httpd,openssl-devel,yum-utils,perl,curl,squid,git,cronie,nginx,certbot-nginx,autoconf,pkg-config,libssl-dev,libzip-dev,zlib1g-dev,zlib1g-dev}
-RUN yum-config-manager --disable *
-RUN yum-config-manager --enable remi–php7*
-RUN yum -y install php php-{cli,fpm,gd,redis,soap,intl,pdo,pdo_mysql,pdo_pgsql,pear,devel,mbstring,zip,unzip,pear}
+RUN  yum -y install yum-utils
+RUN yum-config-manager --disable 'remi-php*'
+RUN yum-config-manager --enable remi-php80
+
 # RUN yum install -y {pcre-devel,php-devel,zlib-devel}
 # RUN yum install php-pear -y
 
