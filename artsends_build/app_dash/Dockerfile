@@ -2,7 +2,6 @@ FROM centos:7
 
 RUN  yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
      https://rpms.remirepo.net/enterprise/remi-release-7.rpm
-RUN  yum update -y
 
 # RUN yum install -y {vim,wget,zip,unzip,sed,gd,gd-devel,gmp-devel,net-tools,ntpdate,ntp,openssh-clients,openssh-server,httpd,openssl-devel,yum-utils,perl,curl,squid,git,cronie,nginx,certbot-nginx}
 # Testing
@@ -22,10 +21,9 @@ RUN  pip install s3cmd
 # ---------------php 8 ------------------------
 
 RUN  yum clean all
-RUN  yum update -y
 
-RU yum-config-manager --disable remi*''
-RUN yum-config-manager --enable remi–php74*
+RUN yum-config-manager --disable "remi*"
+RUN yum-config-manager --enable "remi–php74*"
 
 RUN yum -y install php php-{cli,fpm,gd,redis,soap,intl,pdo,pdo_mysql,pdo_pgsql,pear,devel,mbstring,zip,unzip,pear}
 RUN yum -y install php-mysql.x86_64 --skip-broken
