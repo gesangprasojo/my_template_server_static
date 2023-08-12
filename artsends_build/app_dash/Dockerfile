@@ -6,7 +6,7 @@ RUN  yum install -y https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/ep
 RUN  yum update -y
  
 RUN  yum-config-manager --disable remi-php*
-RUN  yum-config-manager --enable remi–php8*
+RUN  yum-config-manager --enable remi–php7*
 
 
 RUN yum -y install php php-zip php-mysql php-mcrypt php-xml php-mbstring
