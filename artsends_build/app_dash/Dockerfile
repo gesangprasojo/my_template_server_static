@@ -14,7 +14,7 @@ RUN yum install -y {vim,wget,zip,unzip,sed,gd,gd-devel,gmp-devel,net-tools,ntpda
 RUN  yum clean all
 RUN yum update -y
 RUN yum-config-manager --disable "remi*"
-RUN yum-config-manager --enable "remi–php74*"
+RUN yum-config-manager --enable "remi–php7*"
 RUN yum -y install php php-{cli,fpm,gd,redis,soap,intl,pdo,pdo_mysql,pdo_pgsql,pear,devel,mbstring,zip,unzip,pear}
 RUN yum -y install php-mysql.x86_64 --skip-broken
 
