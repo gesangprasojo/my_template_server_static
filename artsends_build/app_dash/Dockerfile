@@ -1,39 +1,37 @@
 FROM centos:7
+RUN  yum clean all
+RUN  yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
+     https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+RUN  yum update -y
 
-RUN yum clean all
-RUN  yum install -y https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-14.noarch.rpm \
-     http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+RUN  yum-config-manager --disable remi-php*
+RUN  yum-config-manager --enable remi–php82
+
+
+RUN yum -y install php php-{cli,fpm,gd,redis,soap,intl,pdo,pdo_mysql,pdo_pgsql,pear,devel,mbstring,zip,unzip,pear}
+RUN yum -y install php-mysql.x86_64 --skip-broken
 
 # RUN yum install -y {vim,wget,zip,unzip,sed,gd,gd-devel,gmp-devel,net-tools,ntpdate,ntp,openssh-clients,openssh-server,httpd,openssl-devel,yum-utils,perl,curl,squid,git,cronie,nginx,certbot-nginx}
 # Testing
-# RUN yum --enablerepo=remi,epel install php php-zip php-mysql php-mcrypt php-xml php-mbstring
-
-
-RUN  yum-config-manager --disable remi-php*
-RUN  yum-config-manager --enable remi-php7*
-
-RUN yum update -y 
-RUN  yum install php php-cli php-fpm php-mysqlnd php-zip php-devel php-gd phpN-mcrypt php-mbstring php-curl php-xml php-pear php-bcmath php-json -y
-# RUN yum install -y {pcre-devel,php-devel,zlib-devel}
-# RUN yum install php-pear -y
+RUN yum install -y {vim,wget,zip,unzip,sed,gd,gd-devel,gmp-devel,net-tools,ntpdate,ntp,openssh-clients,openssh-server,httpd,openssl-devel,yum-utils,perl,curl,squid,git,cronie,nginx,certbot-nginx,autoconf,pkg-config,libssl-dev,libzip-dev,zlib1g-dev,zlib1g-dev}
+RUN yum install -y {pcre-devel,php-devel,zlib-devel}
+RUN yum install php-pear -y
 
 
 
-
-# RUN yum -y install php-mysql.x86_64 --skip-broken
-
-# RUN  yum install -y gcc-c++ make
-# RUN  yum install -y python36 \
-#      python36-devel \ 
-#      python36-setuptools 
-# RUN  easy_install-3.6 pip
-# RUN  pip install supervisor
-# RUN  pip install s3cmd
+RUN  yum install -y gcc-c++ make
+RUN  yum install -y python36 \
+     python36-devel \ 
+     python36-setuptools 
+RUN  easy_install-3.6 pip
+RUN  pip install supervisor
+RUN  pip install s3cmd
 # ---------------php 8 ------------------------
 
 
 
-# RUN  curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN  curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 # ---------------php------------------------
 
 # ---------------php 7------------------------
@@ -46,8 +44,8 @@ RUN  yum install php php-cli php-fpm php-mysqlnd php-zip php-devel php-gd phpN-m
 # ---------------php------------------------
 
 
-# RUN  curl -sL https://rpm.nodesource.com/setup_16.x | bash -
-# RUN  yum install nodejs -y
+RUN  curl -sL https://rpm.nodesource.com/setup_16.x | bash -
+RUN  yum install nodejs -y
 
 ARG ART_NGINX_USER
 ARG ART_NGINX_USER_PWD
