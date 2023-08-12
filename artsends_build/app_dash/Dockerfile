@@ -4,7 +4,7 @@ RUN  yum install -y https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/ep
      http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
 RUN  yum-config-manager --disable remi-php*
-RUN  yum-config-manager --enable remi–php82
+RUN  yum-config-manager --enable remi–php8*
 RUN  yum update -y
  
 
