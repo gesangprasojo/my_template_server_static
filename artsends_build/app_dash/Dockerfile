@@ -1,11 +1,11 @@
 FROM centos:7
 RUN  yum clean all
-RUN  yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
-     https://rpms.remirepo.net/enterprise/remi-release-7.rpm
-RUN  yum update -y
+RUN  yum install -y https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-14.noarch.rpm \
+     http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
 RUN  yum-config-manager --disable remi-php*
 RUN  yum-config-manager --enable remi–php82
+RUN  yum update -y
 
 
 RUN yum -y install php php-{cli,fpm,gd,redis,soap,intl,pdo,pdo_mysql,pdo_pgsql,pear,devel,mbstring,zip,unzip,pear}
