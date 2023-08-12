@@ -5,7 +5,7 @@ RUN  yum install -y https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/ep
 
 # RUN yum install -y {vim,wget,zip,unzip,sed,gd,gd-devel,gmp-devel,net-tools,ntpdate,ntp,openssh-clients,openssh-server,httpd,openssl-devel,yum-utils,perl,curl,squid,git,cronie,nginx,certbot-nginx}
 # Testing
-# RUN yum --enablerepo=remi,epel install php php-zip php-mysql php-mcrypt php-xml php-mbstring
+RUN yum --enablerepo=remi,epel install php php-zip php-mysql php-mcrypt php-xml php-mbstring
 
 # RUN yum install -y {pcre-devel,php-devel,zlib-devel}
 # RUN yum install php-pear -y
@@ -45,8 +45,3 @@ RUN  yum install -y https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/ep
 ARG ART_NGINX_USER
 ARG ART_NGINX_USER_PWD
 RUN useradd -m -p $(openssl passwd -1 $ART_NGINX_USER_PWD) $ART_NGINX_USER
-
-
-
-# RUN  php /joko_dynamic/dirujak.ini/autoscript.php
-# CMD ["supervisord", "-c" ,"/etc/supervisord.conf"]
