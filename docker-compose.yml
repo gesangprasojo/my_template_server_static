@@ -41,6 +41,7 @@ services:
         container_name: app_web
         ports:
             - '82:82'
+            - '3000:3000'
         networks:
             - artsends_net
         volumes:
@@ -59,7 +60,7 @@ services:
             args:
                 - ART_NGINX_USER=dash
                 - ART_NGINX_USER_PWD=master-1991
-                - ART_SUPERVISOR_USER=router
+                - ART_SUPERVISOR_USER=dash
                 - ART_SIGNITURE=ART_12_08_2023
             dockerfile: ./artsends_build/app_dash/Dockerfile
         image: megesangprasojo/artsends:app_dash
@@ -68,9 +69,11 @@ services:
         container_name: app_dash
         ports:
             - '83:83'
+            - '31:22'
         networks:
             - artsends_net
         volumes:
+            - ./file_deploy/www.conf:/etc/php-fpm.d/www.conf
             - ./supervisord/master_conf/app_dash/supervisord.conf:/etc/supervisord.conf
             - ./supervisord/list_app/app_dash/:/etc/supervisor/run.d/
             # 
