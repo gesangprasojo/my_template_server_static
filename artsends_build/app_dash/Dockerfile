@@ -8,7 +8,7 @@ RUN yum install -y yum-utils
 RUN yum repolist all
 RUN yum-config-manager --disable remi-php*
 RUN yum update -y
-RUN yum-config-manager --enable remi-php8*
+RUN yum-config-manager --enable remi-php74*
 
 RUN yum -y install php php-zip php-mysql php-mcrypt php-xml php-mbstring php-fpm
 #
@@ -30,9 +30,10 @@ RUN  yum install nodejs -y
 #
 ARG ART_NGINX_USER
 ARG ART_NGINX_USER_PWD
+ARG ART_UID
 
 # # # RUN useradd -m -p $(openssl passwd -1 $ART_NGINX_USER_PWD) $ART_NGINX_USER
-RUN useradd -G root  -d /home/$ART_NGINX_USER $ART_NGINX_USER
+RUN useradd -G root -u $ART_UID -d /home/$ART_NGINX_USER $ART_NGINX_USER
 RUN mkdir -p /home/$ART_NGINX_USER/.composer && chown -R $ART_NGINX_USER:$ART_NGINX_USER /home/$ART_NGINX_USER
 RUN chmod 755 /home/$ART_NGINX_USER
 RUN /usr/bin/ssh-keygen -A

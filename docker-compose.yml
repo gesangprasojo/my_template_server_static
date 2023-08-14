@@ -8,23 +8,26 @@ services:
                 - ART_NGINX_USER_PWD=master-1991
                 - ART_SUPERVISOR_USER=router
                 - ART_SIGNITURE=ART_12_08_2023
+                - ART_UID=1001
             dockerfile: ./artsends_build/app_router/Dockerfile
         image: megesangprasojo/artsends:app_router
         command: >
             bash -c "supervisord -c /etc/supervisord.conf;"
         container_name: app_router
         ports:
-            - '81:81'
+            - '80:80'
+            - '443:443'
         networks:
             - artsends_net
         volumes:
             - ./supervisord/master_conf/app_router/supervisord.conf:/etc/supervisord.conf
             - ./supervisord/list_app/app_router/:/etc/supervisor/run.d/
-            # 
+            #
             - ./nginx/serverblock/nginx_conf/app_router/nginx.conf:/etc/nginx/nginx.conf
             - ./nginx/serverblock/block_conf/app_router/:/etc/nginx/router/
             #
             - ./file_deploy/file_template/html/index.html/:/etc/nginx/tmp_file/index.html
+            - ./nginx/Certificate/let:/etc/nginx/mycertificat
         restart: always
     app_web:
         build:
@@ -34,20 +37,21 @@ services:
                 - ART_NGINX_USER_PWD=master-1991
                 - ART_SUPERVISOR_USER=router
                 - ART_SIGNITURE=ART_12_08_2023
+                - ART_UID=1001
             dockerfile: ./artsends_build/app_web/Dockerfile
         image: megesangprasojo/artsends:app_web
         command: >
             bash -c "supervisord -c /etc/supervisord.conf;"
         container_name: app_web
         ports:
-            - '82:82'
+            - '81:81'
             - '3000:3000'
         networks:
             - artsends_net
         volumes:
             - ./supervisord/master_conf/app_web/supervisord.conf:/etc/supervisord.conf
             - ./supervisord/list_app/app_web/:/etc/supervisor/run.d/
-            # 
+            #
             - ./nginx/serverblock/nginx_conf/app_web/nginx.conf:/etc/nginx/nginx.conf
             - ./nginx/serverblock/block_conf/app_web/:/etc/nginx/web/
             #
@@ -62,13 +66,14 @@ services:
                 - ART_NGINX_USER_PWD=master-1991
                 - ART_SUPERVISOR_USER=dash
                 - ART_SIGNITURE=ART_12_08_2023
+                - ART_UID=1001
             dockerfile: ./artsends_build/app_dash/Dockerfile
         image: megesangprasojo/artsends:app_dash
         command: >
             bash -c "supervisord -c /etc/supervisord.conf;"
         container_name: app_dash
         ports:
-            - '83:83'
+            - '82:82'
             - '31:22'
         networks:
             - artsends_net
@@ -76,13 +81,31 @@ services:
             - ./file_deploy/www.conf:/etc/php-fpm.d/www.conf
             - ./supervisord/master_conf/app_dash/supervisord.conf:/etc/supervisord.conf
             - ./supervisord/list_app/app_dash/:/etc/supervisor/run.d/
-            # 
+            #
             - ./nginx/serverblock/nginx_conf/app_dash/nginx.conf:/etc/nginx/nginx.conf
             - ./nginx/serverblock/block_conf/app_dash/:/etc/nginx/dash/
             #
             - ./file_deploy/file_template/html/index.html/:/etc/nginx/tmp_file/index.html
             - ./../app/dash/:/area/dash
         restart: always
+    app_db:
+        image: mariadb:10.7
+        # image: gesangprasojo/naturalfarm:prod_db_v2
+        container_name: app_db
+        environment:
+            MYSQL_DATABASE: app_db
+            MYSQL_ROOT_PASSWORD: berirMetal-1991
+            MYSQL_PASSWORD: berirMetal-1991
+            MYSQL_USER: app_db
+            SERVICE_TAGS: production
+            SERVICE_NAME: mysql
+        volumes:
+            - ./db/rizal_stored:/var/lib/mysql/
+        restart: always
+        ports:
+            - '23739:3306'
+        networks:
+            - artsends_net
 networks:
     artsends_net:
         driver: bridge
